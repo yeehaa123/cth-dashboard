@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
 
-<polymer-element name="cth-student-profile">
+<polymer-element name="cth-student-profile" attributes="studentIndex">
   <template>
     <ul class="student-info">
       <polymer-ajax url="{{url}}" auto response="{{profile}}"></polymer-ajax>
@@ -15,9 +15,15 @@
   <script>
     Polymer("cth-student-profile", {
       ready: function(){ 
-        this.url = "https://ast2014.firebaseio.com/students/" + this.studentIndex + "/.json";
+        this.updateProfile();
       },
-      studentIndex: 0
+      studentIndex: 0,
+      studentIndexChanged: function(){
+        this.updateProfile();
+      },
+      updateProfile: function(){
+        this.url = "https://ast2014.firebaseio.com/students/" + this.studentIndex + "/.json";
+      }
     });
   </script>
 </polymer-element>
