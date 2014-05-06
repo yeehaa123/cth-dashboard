@@ -1,0 +1,23 @@
+<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
+
+<polymer-element name="cth-student-profile">
+  <template>
+    <ul class="student-info">
+      <polymer-ajax url="{{url}}" auto response="{{profile}}"></polymer-ajax>
+      <template repeat="{{assignment in profile.assignments}}">
+        <template if="{{assignment}}">
+        <li>{{assignment}}</li>
+        </template>
+      </template>
+    </ul>
+  </template>
+
+  <script>
+    Polymer("cth-student-profile", {
+      ready: function(){ 
+        this.url = "https://ast2014.firebaseio.com/students/" + this.studentIndex + "/.json";
+      },
+      studentIndex: 0
+    });
+  </script>
+</polymer-element>

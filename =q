@@ -1,0 +1,17 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../elements/cth-student-row.html">
+<link rel="import" href="../elements/cth-student-list.html">
+<link rel="import" href="../elements/cth-student-profile.html">
+
+<polymer-element name="cth-dashboard" noscript>
+  <style>
+    thead {
+      background: grey;
+    }
+   
+  </style>
+  <template>
+    <cth-student-list></cth-student-list>
+    <cth-student-profile></cth-student-profile>
+  </template>
+</polymer-element>

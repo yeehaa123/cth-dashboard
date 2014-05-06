@@ -1,0 +1,22 @@
+<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
+
+<polymer-element name="cth-student-list" noscript>
+
+  <template>
+    <table id="student-list">
+      <thead>
+        <tr>
+          <td>First name</td>
+          <td>Last name</td>
+          <td>Student Id</td>
+       </tr>
+      </thead>
+      <polymer-ajax url="https://ast2014.firebaseio.com/students/.json" auto response="{{students}}"></polymer-ajax>
+      <template repeat="{{ student in students }}">
+        <template if="{{student}}">
+          <cth-student-row student="{{student}}"></cth-student-row>
+        </template>
+      </template>
+    </table>
+  </template>
+</polymer-element>

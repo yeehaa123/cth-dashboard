@@ -1,0 +1,18 @@
+<polymer-element name="cth-student-row" attributes="student">
+
+  <template>
+      <tr
+        class="student-info 
+        student-{{student.studentId}}">
+        <td><img src="https://lh3.ggpht.com/WPZS-N1qjpJbmpFmM_6V0S4nVAKIDARvUK-DRjrW8lIaGKo3VkJpR8ui4NhWyOu_Nktq=w50"/></td>
+          <td>{{ student.firstName }}</td>
+          <td>{{ student.lastName  }}</td>
+          <td>{{ student.studentId  }}</td>
+      </tr>
+  </template>
+
+  <script>
+     Polymer('cth-student-row', {
+      });
+  </script>
+</polymer-element>
