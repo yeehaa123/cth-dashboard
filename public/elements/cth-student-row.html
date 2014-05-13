@@ -1,14 +1,27 @@
 <polymer-element name="cth-student-row" attributes="student">
 
-  <template>
-      <tr
-        class="student-info 
-        student-{{student.studentId}}">
-        <td><img src="https://lh3.ggpht.com/WPZS-N1qjpJbmpFmM_6V0S4nVAKIDARvUK-DRjrW8lIaGKo3VkJpR8ui4NhWyOu_Nktq=w50"/></td>
-          <td>{{ student.firstName }}</td>
-          <td>{{ student.lastName  }}</td>
-          <td>{{ student.studentId  }}</td>
-      </tr>
+  <template attributes="student"> 
+
+    <style>
+      .person {
+        height: 40px;
+        vertical-align: center;
+        padding: 0;
+      }
+
+      td.image {
+        width: 20%;
+      }
+      
+      .student-id {
+        text-align: right;
+      }
+
+    </style>
+
+    <td class="image"><img class="person" src="person.svg"/></td>
+    <td>{{ student.firstName }} {{ student.lastName  }}</td>
+    <td class="student-id">{{ student.studentId  }}</td>
   </template>
 
   <script>

@@ -1,0 +1,38 @@
+:host {
+  display: block;
+  width: 1040px;
+  font-family: 'Roboto', sans-serif;
+}
+
+cth-student-list {
+  float: left;
+}
+cth-student-profile {
+  float: right;
+}
+
+.toolbar {
+  display: block;
+  color: white;
+  border-bottom: 3px solid white;
+  background: #75C7B3;
+  height: 60px;
+  vertical-align: center;
+  padding: 10px;
+  margin: 10px;
+  margin-bottom: 5px;
+}
+
+.toolbar img {
+  float: left;
+  height: 60px;
+}
+
+.toolbar h1 {
+  color: white;
+  font-size: 1.5em;
+  text-align: right;
+  margin-right: 5px;
+  float: right;
+}
+

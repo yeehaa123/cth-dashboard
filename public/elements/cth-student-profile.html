@@ -1,28 +1,62 @@
 <link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
+<link rel="import" href="./cth-assignment-list.html">
 
-<polymer-element name="cth-student-profile" attributes="studentIndex">
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+<polymer-element name="cth-student-profile" attributes="student">
+
   <template>
-    <ul class="student-info">
-      <polymer-ajax url="{{url}}" auto response="{{profile}}"></polymer-ajax>
-      <template repeat="{{assignment in profile.assignments}}">
-        <template if="{{assignment}}">
-        <li>{{assignment}}</li>
-        </template>
-      </template>
-    </ul>
-  </template>
+    <style>
+      @font-face {
+        font-family: circle;
+        src: url('circlefont.woff') format('woff');
+      }
 
+      :host {
+        font-family: 'Roboto', sans-serif;
+        height: 20vh;
+      }
+
+      p {
+        font-family: circle;
+        font-size: 70px;
+      }
+      span {
+        color: red;
+      }
+    </style>
+
+    <p>q<span>w</span>ertyuioa</p>
+  
+
+    <core-ajax url="{{url}}" 
+               method="PUT"
+               params="{{counter}}"
+               auto body="{{gitData}}"
+               response="{{resp}}">
+    </core-ajax>
+    {{ url }}
+
+  <form id="myForm" on-submit="{{ submitForm }}">
+    <input class="text" value="{{ githubName }}">
+    <button type="submit">Submit</button>
+  </form>
+
+  <cth-assignment-list assignments="{{student.assignments}}"></cth-assignment-list>
+
+  </template>
   <script>
     Polymer("cth-student-profile", {
-      ready: function(){ 
-        this.updateProfile();
+      url: "https://ast2014.firebaseio.com/students/0/github.json",
+      counter: 0,
+      studentChanged: function(){ 
+        this.url = "https://ast2014.firebaseio.com/students/" + this.student.firebaseId + "/github.json";
       },
-      studentIndex: 0,
-      studentIndexChanged: function(){
-        this.updateProfile();
-      },
-      updateProfile: function(){
-        this.url = "https://ast2014.firebaseio.com/students/" + this.studentIndex + "/.json";
+      gitData: JSON.stringify({githubName: "Jan"}), 
+      submitForm: function(e){
+        e.preventDefault();
+        this.counter += 1;
+        this.gitData = JSON.stringify({githubName: this.githubName});
       }
     });
   </script>
