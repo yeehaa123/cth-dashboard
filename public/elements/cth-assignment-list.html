@@ -1,11 +1,18 @@
 <polymer-element name='cth-assignment-list' attributes="assignments" noscript>
-<template>
-  <ul class="student-info">
-    <template repeat="{{assignment in assignments}}">
-      <template if="{{assignment}}">
-      <li>{{assignment}}</li>
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin: 30px;
+        font-size: 10px;
+      }
+    </style>
+    <ul class="student-info">
+      <template repeat="{{assignment in assignments}}">
+        <template if="{{assignment}}">
+        <li>{{assignment}}</li>
+        </template>
       </template>
-    </template>
-  </ul>
-</template>
+    </ul>
+  </template>
 </polymer-element>

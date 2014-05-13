@@ -1,9 +1,11 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../elements/cth-student-list.html">
-<link rel="import" href="../elements/cth-student-profile.html">
 <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
-<polymer-element name="cth-dashboard">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../elements/cth-student-list.html">
+<link rel="import" href="../elements/cth-student-profile.html">
+
+<polymer-element name="cth-dashboard" noscript>
   <template>
 
     <style>
@@ -13,9 +15,10 @@
         font-family: 'Roboto', sans-serif;
       }
 
-      cth-student-list {
+      cth-student-list, cth-assignment-list {
         float: left;
       }
+
       cth-student-profile {
         float: right;
       }
@@ -53,13 +56,7 @@
     </div>
 
     <cth-student-list selectedStudent="{{selectedStudent}}"></cth-student-list>
-    <h1>{{ selectedStudent.firstName }}</h1>
     <cth-student-profile student="{{selectedStudent}}"></cth-student-profile>
-
+    <cth-assignment-list assignments="{{selectedStudent.assignments}}"></cth-assignment-list>
   </template>
-  <script>
-    Polymer("cth-dashboard", {
-      studentIndex: 3
-    });
-  </script>
 </polymer-element>

@@ -13,13 +13,16 @@
       }
 
       :host {
+        display: block;
         font-family: 'Roboto', sans-serif;
-        height: 20vh;
+        height: 90px;
       }
 
       p {
         font-family: circle;
         font-size: 70px;
+        margin: 20px;
+        margin-left: 0px;
       }
       span {
         color: red;
@@ -27,36 +30,32 @@
     </style>
 
     <p>q<span>w</span>ertyuioa</p>
-  
 
     <core-ajax url="{{url}}" 
                method="PUT"
-               params="{{counter}}"
+               params="{{update}}"
                auto body="{{gitData}}"
                response="{{resp}}">
     </core-ajax>
-    {{ url }}
 
   <form id="myForm" on-submit="{{ submitForm }}">
-    <input class="text" value="{{ githubName }}">
+    <input class="text" value="{{ githubName }}" placeholder="{{student.github.githubName}}"</input>
     <button type="submit">Submit</button>
   </form>
 
-  <cth-assignment-list assignments="{{student.assignments}}"></cth-assignment-list>
 
   </template>
+
   <script>
     Polymer("cth-student-profile", {
-      url: "https://ast2014.firebaseio.com/students/0/github.json",
-      counter: 0,
-      studentChanged: function(){ 
-        this.url = "https://ast2014.firebaseio.com/students/" + this.student.firebaseId + "/github.json";
-      },
-      gitData: JSON.stringify({githubName: "Jan"}), 
+      update: false,
       submitForm: function(e){
         e.preventDefault();
-        this.counter += 1;
+        this.url = "https://ast2014.firebaseio.com/students/" + this.student.firebaseId + "/github.json";
+        this.counter = !this.counter;
+        this.student.github.githubName = this.githubName;
         this.gitData = JSON.stringify({githubName: this.githubName});
+        this.githubName = "";
       }
     });
   </script>

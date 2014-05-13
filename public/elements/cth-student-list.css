@@ -1,0 +1,58 @@
+:host {
+  width: 400px;
+  margin: 5px 0px 5px 10px; 
+  font-family: 'Roboto', sans-serif;
+}
+
+.student-info {
+  border-bottom: 5px solid white;
+  vertical-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 50px;
+  padding: 20px;
+  background: #E5CF39;
+}
+
+.student-info:hover {
+  color: white;
+  background: #A5CC45;
+}
+.student-info.core-selected {
+  color: white;
+  background: #A5CC45;
+}
+
+.details {
+  display: none;
+}
+
+ul {
+  list-style:none;
+  padding-left:0;
+}
+
+.person {
+  height: 50px;
+  padding: 0;
+}
+
+.image {
+  float: left;
+  text-align: left;
+  width: 20%;
+}
+
+.full-name {
+  width: 40%;
+  float: left;
+}
+
+.student-id {
+  width: 20%;
+  float: right;
+}

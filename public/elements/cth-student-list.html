@@ -1,86 +1,40 @@
-<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-selector/core-selector.html">
+<link rel="import" href="../elements/cth-student-row.html">
+
 <script src="../bower_components/lodash/dist/lodash.js"></script>
 <script src="../bower_components/reqwest/reqwest.js"></script>
 
 <polymer-element name="cth-student-list" attributes="selectedStudent">
 
   <template>
-
-    <style>
-      :host {
-        width: 400px;
-        margin: 5px 0px 5px 10px; 
-        font-family: 'Roboto', sans-serif;
-      }
-
-      table {
-        border-collapse: collapse;
-        background: #E5CF39;
-      }
-
-
-      tbody tr {
-        border-bottom: 5px solid white;
-      } 
-
-      tr {
-        height: 50px;
-      }
-
-      tbody tr:hover {
-        color: white;
-        background: #A5CC45;
-      }
-
-      td {
-        padding: 15px 20px;
-      }
-
-
-      thead td {
-        padding: 15px;
-      }
-
-
-      .person {
-        height: 40px;
-        vertical-align: center;
-        padding: 0;
-      }
-
-      td.image {
-        width: 20%;
-      }
-      
-      .student-id {
-        text-align: right;
-      }
-    </style>
+    <link href='./cth-student-list.css' rel='stylesheet' type='text/css'>
 
     <core-ajax url="https://ast2014.firebaseio.com/students/.json" 
                   auto response="{{rawStudents}}">
     </core-ajax>
-    <img src="{{picture}}"/>
 
-    <table>
-      <tbody>
+    <ul>
+      <core-selector selectedClass="select" selectedModel={{selectedItem}}">
         <template repeat="{{ student in students }}">
-          <tr on-click="{{selectStudent}}"
-              class="student-info"
+          <li class="student-info {{selectedClass}}"
               id="{{student.studentId}}">
-              <td class="image"><img class="person" src="{{student.picture}}"/></td>
-            <td>{{ student.firstName }} {{ student.lastName  }}</td>
-            <td class="student-id">{{ student.studentId  }}</td>
-          </tr>
+            <div class="image"><img class="person" src="{{student.picture}}"/></div>
+            <div class="full-name"><p>{{ student.firstName }} {{ student.lastName  }}</p></div>
+            <div class="student-id"><p>{{ student.studentId  }}</p></div>
+          </li>
         </template>
-      </tbody>
-    </table>
+      </core-selector>
+    </ul>
   </template>
-
 
   <script>
     Polymer('cth-student-list', {
+
+      selectedItemChanged: function(){
+        this.selectedStudent = this.selectedItem.student;
+      },
 
       rawStudentsChanged: function(){
         this.indexedStudents = _.map(this.rawStudents, function(student, index){
@@ -90,12 +44,12 @@
           return student;
         });
 
-
         this.students = _.compact(this.indexedStudents);
         
         this.picturedStudents = _.map(this.students, function(student){
           student.picture = "./elements/person.svg";
-          if(student.github && student.github.githubName){ reqwest({
+          if(student.github && student.github.githubName){ 
+            reqwest({
               url: 'https://api.github.com/users/' + student.github.githubName, 
               method: 'get', 
               success: function (resp) {
@@ -103,12 +57,6 @@
               }});
           }
         });
-      },
-      selectStudent: function(event, context, sender){
-        var student = _.find(this.students, function(student){
-          return student.studentId === sender.id;
-        });
-        this.selectedStudent = student;
       }
     });
   </script>
