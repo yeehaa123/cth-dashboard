@@ -1,4 +1,5 @@
-<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
 <link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="../bower_components/core-selector/core-selector.html">
 <link rel="import" href="../elements/cth-student-row.html">
@@ -16,23 +17,58 @@
     </core-ajax>
 
     <ul>
-      <core-selector selectedClass="select" selectedModel={{selectedItem}}">
+      <core-selector selectedClass="selected" 
+                     selectedModel={{selectedItem}}">
+
         <template repeat="{{ student in students }}">
-          <li class="student-info {{selectedClass}}"
+
+          <li class="student-info"
               id="{{student.studentId}}">
-            <div class="image"><img class="person" src="{{student.picture}}"/></div>
-            <div class="full-name"><p>{{ student.firstName }} {{ student.lastName  }}</p></div>
-            <div class="student-id"><p>{{ student.studentId  }}</p></div>
+
+            <div class="basic-info">
+              <div class="image"><img class="person" src="{{student.picture}}"/></div>
+              <div class="full-name"><p>{{ student.firstName }} {{ student.lastName  }}</p></div>
+              <div class="student-id"><p>{{ student.studentId  }}</p></div>
+            </div>
+
+            <div class="details">
+              <core-ajax url="{{url}}" 
+                         method="PUT"
+                         params="{{update}}"
+                         auto body="{{gitData}}"
+                         response="{{resp}}">
+              </core-ajax>
+              <form id="myForm" on-submit="{{ submitForm }}">
+                <label>Github Name</label>
+                <input type="text" 
+                       value="{{ githubName }}" 
+                       placeholder="{{student.github.githubName}}" 
+                       required></input>
+              </form>
+            </div>
+
           </li>
         </template>
+
       </core-selector>
     </ul>
   </template>
 
   <script>
     Polymer('cth-student-list', {
+      update: false,
+
+      submitForm: function(e){
+        e.preventDefault();
+        this.url = "https://ast2014.firebaseio.com/students/" + this.selectedStudent.firebaseId + "/github.json";
+        this.gitData = JSON.stringify({githubName: this.githubName});
+        this.counter = !this.counter;
+        this.selectedStudent.github.githubName = this.githubName;
+        this.githubName = "";
+      },
 
       selectedItemChanged: function(){
+        this.githubName = "";
         this.selectedStudent = this.selectedItem.student;
       },
 
@@ -45,17 +81,18 @@
         });
 
         this.students = _.compact(this.indexedStudents);
-        
-        this.picturedStudents = _.map(this.students, function(student){
+
+        this.picturedStudents = _.each(this.students, function(student){
           student.picture = "./elements/person.svg";
-          if(student.github && student.github.githubName){ 
-            reqwest({
-              url: 'https://api.github.com/users/' + student.github.githubName, 
-              method: 'get', 
-              success: function (resp) {
-                student.picture = resp.avatar_url;
-              }});
-          }
+          // if(student.github && student.github.githubName){ 
+          // reqwest({
+          //  url: 'https://api.github.com/users/' + student.github.githubName, 
+          //  method: 'get', 
+          //  success: function (resp) {
+          //  student.picture = resp.avatar_url;
+          // }
+          // });
+          // }
         });
       }
     });

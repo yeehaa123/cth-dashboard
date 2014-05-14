@@ -22,7 +22,8 @@
   color: white;
   background: #A5CC45;
 }
-.student-info.core-selected {
+.student-info.selected {
+  height: 120px;
   color: white;
   background: #A5CC45;
 }
@@ -31,8 +32,46 @@
   display: none;
 }
 
+.basic-info  {
+  height: 50px;
+}
+.selected .details {
+  color: black;
+  margin-top: 20px;
+  width: 100%;
+  display: block;
+  float: left;
+}
+
+form {
+  height: 40px;
+}
+
+label {
+  width: 25%;
+  font-size: 0.9em;
+  height: 40px;
+  float: left;
+  padding: 10px 0px;
+  text-align: left;
+}
+
+input[type="text"] {
+  background: #E5CF39;
+  padding: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9em;
+  color: white;
+  float: right;
+  width: 65%;
+  height: 20px;
+  text-align: right;
+  border: 1px black;
+}
+
 ul {
   list-style:none;
+  margin: 0;
   padding-left:0;
 }
 

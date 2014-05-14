@@ -1,62 +1,25 @@
-<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <link rel="import" href="../elements/cth-student-list.html">
 <link rel="import" href="../elements/cth-student-profile.html">
+<link rel="import" href="../elements/cth-toolbar.html">
 
 <polymer-element name="cth-dashboard" noscript>
+
   <template>
 
-    <style>
-      :host {
-        display: block;
-        width: 1040px;
-        font-family: 'Roboto', sans-serif;
-      }
+    <link href='./cth-dashboard.css' rel='stylesheet' type='text/css'>
 
-      cth-student-list, cth-assignment-list {
-        float: left;
-      }
-
-      cth-student-profile {
-        float: right;
-      }
-
-      .toolbar {
-        display: block;
-        color: white;
-        border-bottom: 3px solid white;
-        background: #75C7B3;
-        height: 60px;
-        vertical-align: center;
-        padding: 10px;
-        margin: 10px;
-        margin-bottom: 5px;
-      }
-
-      .toolbar img {
-        float: left;
-        height: 60px;
-      }
-
-      .toolbar h1 {
-        color: white;
-        font-size: 1.5em;
-        text-align: right;
-        margin-right: 5px;
-        float: right;
-      }
-
-    </style>
-
-    <div class="toolbar">
-      <img src="logo.svg"/>
-      <h1>Coding the Humanities</h1>
-    </div>
+    <cth-toolbar></cth-toolbar>
 
     <cth-student-list selectedStudent="{{selectedStudent}}"></cth-student-list>
+
     <cth-student-profile student="{{selectedStudent}}"></cth-student-profile>
+
     <cth-assignment-list assignments="{{selectedStudent.assignments}}"></cth-assignment-list>
+
   </template>
+
 </polymer-element>
