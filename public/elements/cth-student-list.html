@@ -5,7 +5,6 @@
 <link rel="import" href="../elements/cth-student-row.html">
 
 <script src="../bower_components/lodash/dist/lodash.js"></script>
-<script src="../bower_components/reqwest/reqwest.js"></script>
 
 <polymer-element name="cth-student-list" attributes="selectedStudent">
 
@@ -16,9 +15,18 @@
                   auto response="{{rawStudents}}">
     </core-ajax>
 
+    <core-ajax id="updateGit" 
+               url="{{url}}" 
+               method="PUT"
+               params="{{update}}"
+               auto body="{{gitData}}"
+               response="{{resp}}">
+    </core-ajax>
+
     <ul>
       <core-selector selectedClass="selected" 
-                     selectedModel={{selectedItem}}">
+                     selectedModel={{selectedItem}}"
+                     selected="3">
 
         <template repeat="{{ student in students }}">
 
@@ -32,12 +40,7 @@
             </div>
 
             <div class="details">
-              <core-ajax url="{{url}}" 
-                         method="PUT"
-                         params="{{update}}"
-                         auto body="{{gitData}}"
-                         response="{{resp}}">
-              </core-ajax>
+
               <form id="myForm" on-submit="{{ submitForm }}">
                 <label>Github Name</label>
                 <input type="text" 
@@ -62,8 +65,8 @@
         e.preventDefault();
         this.url = "https://ast2014.firebaseio.com/students/" + this.selectedStudent.firebaseId + "/github.json";
         this.gitData = JSON.stringify({githubName: this.githubName});
-        this.counter = !this.counter;
         this.selectedStudent.github.githubName = this.githubName;
+        this.$.updateGit.go();
         this.githubName = "";
       },
 
@@ -82,17 +85,9 @@
 
         this.students = _.compact(this.indexedStudents);
 
-        this.picturedStudents = _.each(this.students, function(student){
+        _.each(this.students, function(student){
           student.picture = "./elements/person.svg";
-          // if(student.github && student.github.githubName){ 
-          // reqwest({
-          //  url: 'https://api.github.com/users/' + student.github.githubName, 
-          //  method: 'get', 
-          //  success: function (resp) {
-          //  student.picture = resp.avatar_url;
-          // }
-          // });
-          // }
+
         });
       }
     });

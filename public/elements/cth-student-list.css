@@ -1,7 +1,19 @@
+@font-face {
+  font-family: NittyNormal;
+  src: url('NN.woff') format('woff');
+}
+
+@font-face {
+  font-family: NittyBold;
+  src: url('NB.woff') format('woff');
+}
+
 :host {
   width: 400px;
-  margin: 5px 0px 5px 10px; 
-  font-family: 'Roboto', sans-serif;
+  margin: 0 10px 0 10px; 
+  font-family: 'NittyNormal', sans-serif;
+  font-size: 15px;
+  float: left;
 }
 
 .student-info {
@@ -16,6 +28,10 @@
   height: 50px;
   padding: 20px;
   background: #E5CF39;
+}
+
+.student-info:last-child {
+  border-bottom: 0;
 }
 
 .student-info:hover {
@@ -48,6 +64,7 @@ form {
 }
 
 label {
+  font-family: 'NittyBold', sans-serif;
   width: 25%;
   font-size: 0.9em;
   height: 40px;
@@ -59,13 +76,13 @@ label {
 input[type="text"] {
   background: #E5CF39;
   padding: 10px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'NittyBold', sans-serif;
   font-size: 0.9em;
   color: white;
   float: right;
   width: 65%;
   height: 20px;
-  text-align: right;
+  text-align: center;
   border: 1px black;
 }
 
@@ -87,11 +104,12 @@ ul {
 }
 
 .full-name {
-  width: 40%;
+  width: 60%;
   float: left;
 }
 
 .student-id {
+  text-align: right;
   width: 20%;
   float: right;
 }

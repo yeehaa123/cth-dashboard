@@ -2,6 +2,7 @@
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
+
 <link rel="import" href="../elements/cth-student-list.html">
 <link rel="import" href="../elements/cth-student-profile.html">
 <link rel="import" href="../elements/cth-toolbar.html">
@@ -12,14 +13,9 @@
 
     <link href='./cth-dashboard.css' rel='stylesheet' type='text/css'>
 
-    <cth-toolbar></cth-toolbar>
-
-    <cth-student-list selectedStudent="{{selectedStudent}}"></cth-student-list>
-
+    <cth-toolbar></cth-toolbar> 
+    <cth-student-list drawer selectedStudent="{{selectedStudent}}"></cth-student-list>
     <cth-student-profile student="{{selectedStudent}}"></cth-student-profile>
-
-    <cth-assignment-list assignments="{{selectedStudent.assignments}}"></cth-assignment-list>
-
   </template>
 
 </polymer-element>

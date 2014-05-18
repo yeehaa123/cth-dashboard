@@ -1,39 +1,114 @@
-<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
 <link rel="import" href="./cth-assignment-list.html">
-
+<link rel="import" href="../bower_components/core-selector/core-selector.html">
 
 <polymer-element name="cth-student-profile" attributes="student">
 
   <template>
     <style>
       @font-face {
-        font-family: circle;
-        src: url('circlefont.woff') format('woff');
+        font-family: NittyBold;
+        src: url('NB.woff') format('woff');
+      }
+
+      @font-face {
+        font-family: NittyNormal;
+        src: url('NN.woff') format('woff');
       }
 
       :host {
         display: block;
-        font-family: 'Roboto', sans-serif;
-        height: 90px;
+        border: solid 1px black;
+        margin: 0px 10px 5px 0px;
+        width: 600px;
+        float: right;
       }
 
       p {
-        font-family: circle;
-        font-size: 70px;
-        margin: 20px;
-        margin-left: 0px;
+        font-family: 'NittyBold', 'sans-serif';
+        text-align: center;
+        vertical-align: bottom;
+        font-size: 45px;
+        margin: 0;
+        padding: 20px;
       }
-      span {
+
+
+      .unfinished {
+        color: #e5e5e5;
+      }
+      .selected {
         color: red;
       }
+      .assignment {
+        margin: 20px;
+      }
+      
+      .code-box {
+        background: black;
+        padding: 10px;
+      }
+
+      .code-box p {
+        font-family: 'NittyNormal', 'sans-serif';
+        font-size: 16px;
+        color: white;
+        padding: 0.5em;
+        text-align: left;
+      }
+
     </style>
 
-    <p>q<span>w</span>ertyuioa</p>
+    <core-ajax url="{{ selectedAssignment.assignment.url }}" 
+               method="GET" auto 
+               response="{{resp}}">
+    </core-ajax>
 
+    <div class="code-box">
+      <template repeat="{{ line in gitFile }}">
+        <p>{{ line }}</p>
+      </template>
+    </div>
+    <p>
+        <core-selector selectedClass="selected"
+                       selectedModel="{{selectedAssignment}}"
+                       selected="2">
+        <template repeat="{{ assignment, assignmentIndex in assignments }}">
+          <a class="assignment {{assignment.finished}}">{{ assignmentIndex + 1 }}</a>
+        </template>
+      </core-selector>
+    </p>
   </template>
 
   <script>
+    var getGitApiUrl = function(url){
+      matchGist = url.match(/gist.*\/(.*)/);
+      if(matchGist){
+        url = "https://api.github.com/gists/" + matchGist[1];
+      }
+      return url;
+    };
     Polymer("cth-student-profile", {
+      studentChanged: function(){
+        this.assignments = this.student.assignments.map(function(assignment){
+          var output = {};
+          if(assignment){
+            output.url = getGitApiUrl(assignment);
+            output.finished = "finished";
+          } else {
+            output.finished = "unfinished";
+          }
+          return output;
+        });
+      },
+      respChanged: function(){
+        if(this.resp){
+          var files = JSON.parse(this.resp).files;
+          for (file in files){
+            this.gitFile = files[file].content.split(';');
+          }
+        }
+      }
     });
   </script>
 </polymer-element>

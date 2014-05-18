@@ -1,10 +1,45 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
 <polymer-element name="cth-toolbar" noscript>
+  <style>
+
+    @font-face {
+      font-family: NittyBold;
+      src: url('NB.woff') format('woff');
+    }
+
+    .toolbar {
+      display: block;
+      color: white;
+      border-bottom: 3px solid white;
+      background: #75C7B3;
+      height: 60px;
+      vertical-align: center;
+      padding: 10px;
+      margin: 10px;
+      margin-bottom: 5px;
+    }
+
+    .toolbar img {
+      float: left;
+      height: 60px;
+    }
+
+    .toolbar h1 {
+      font-family: 'NittyBold', sans-serif;
+      color: black;
+      font-weight: 500;
+      font-size: 1.5em;
+      text-align: right;
+      margin-right: 5px;
+      float: right;
+    }
+
+  </style>
   <template>
     <div class="toolbar">
       <img src="logo.svg"/>
-      <h1>Coding the Humanities</h1>
+      <h1>Coding_the_Humanities</h1>
     </div>
   </template>
 </polymer-element> 
