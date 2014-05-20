@@ -1,23 +1,56 @@
-<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../bower_components/core-firebase/core-firebase.html">
+<link rel="import" href="../bower_components/core-drawer-panel/core-drawer-panel.html">
 
+<link rel="import" href="./cth-student-list.html">
 
-<link rel="import" href="../elements/cth-student-list.html">
-<link rel="import" href="../elements/cth-student-profile.html">
-<link rel="import" href="../elements/cth-toolbar.html">
-<link rel="import" href="../elements/cth-d3.html">
+<script src="../bower_components/lodash/dist/lodash.js"></script>
+<script src="../bower_components/d3/d3.js"></script>
+<script src="../bower_components/radar-chart-d3/src/radar-chart.js"></script>
 
-<polymer-element name="cth-dashboard" noscript>
+<polymer-element name="cth-dashboard">
 
   <template>
 
     <link href='./cth-dashboard.css' rel='stylesheet' type='text/css'>
 
-    <cth-toolbar></cth-toolbar> 
-    <cth-d3></cth-d3>
-    <cth-student-list drawer selectedStudent="{{selectedStudent}}"></cth-student-list>
-    <cth-student-profile student="{{selectedStudent}}"></cth-student-profile>
+    <core-firebase location="https://cth-site.firebaseio.com/users" 
+               list="{{students}}"> 
+    </core-firebase>
+    <core-drawer-panel>
+      <cth-student-list selectedStudent="{{student}}" students="{{students}}" drawer>
+      </cth-student-list>
+      <div main> 
+        <div id="chart"></div>
+        <h1>{{ student.fullName }}</h1>
+        <h2>{{ student.study }}</h2>
+        <h2>{{ student.studyYear }}</h2>
+        <p>{{ student.motivation }}</p>
+      <div>
+    </core-drawer-panel>
+
   </template>
+  <script>
+    Polymer('cth-dashboard', {
+      studentChanged: function(){
+        if(this.student){
+          var student = this.student;
+          this.student.fullName = student.name.first + " " + student.name.last
+          var competence = this.student.codingExperience;
+          competence = _.pick(competence, function(value, key){
+            return key !== 'others';
+          });
+          competence = _.map(competence, function(value, key){
+            return {
+              axis: key,
+              value: value
+            }
+          });
+          RadarChart.draw(this.$.chart, [competence]);
+        };
+      },
+    });
+  </script>
 
 </polymer-element>

@@ -1,0 +1,14 @@
+{
+  "name": "radar-chart-d3",
+  "homepage": "https://github.com/alangrafu/radar-chart-d3",
+  "_release": "ef0787ddb1",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "ef0787ddb1fa50f2e8494998ad3cbc611da466a8"
+  },
+  "_source": "git://github.com/alangrafu/radar-chart-d3.git",
+  "_target": "*",
+  "_originalSource": "radar-chart-d3",
+  "_direct": true
+}
