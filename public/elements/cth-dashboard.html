@@ -6,6 +6,7 @@
 <link rel="import" href="../elements/cth-student-list.html">
 <link rel="import" href="../elements/cth-student-profile.html">
 <link rel="import" href="../elements/cth-toolbar.html">
+<link rel="import" href="../elements/cth-d3.html">
 
 <polymer-element name="cth-dashboard" noscript>
 
@@ -14,6 +15,7 @@
     <link href='./cth-dashboard.css' rel='stylesheet' type='text/css'>
 
     <cth-toolbar></cth-toolbar> 
+    <cth-d3></cth-d3>
     <cth-student-list drawer selectedStudent="{{selectedStudent}}"></cth-student-list>
     <cth-student-profile student="{{selectedStudent}}"></cth-student-profile>
   </template>

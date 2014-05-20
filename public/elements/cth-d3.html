@@ -1,0 +1,76 @@
+<link rel="import", href="../bower_components/polymer/polymer.html">
+<script src="../bower_components/d3/d3.js"></script>
+
+<polymer-element name='cth-d3'>
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin: 0px 10px 5px 10px;
+        width: 1040px;
+        height: 320px;
+      }
+      
+      .bar {
+        background: red;
+        height: 50px;
+      }
+    </style>
+
+    <svg id="chart" width="1000" height="300"></svg>
+  </template>
+
+
+  <script>
+
+    var scatter = {
+
+      init: function(el, data){
+        this.svg = d3.select(el);
+        var circles = this.svg.selectAll('circle')
+           .data(data)
+           .enter()
+           .append('circle');
+
+        circles.attr("cx", function(d,i){
+                  return (i * 180) + 20;
+                })
+               .attr('cy', 150)
+               .attr('r', function(d){
+                 return d * 30;
+               })
+      },
+
+      draw: function(data){
+        this.svg.selectAll('circle')
+            .data(data)
+            .transition()
+            .attr("cx", function(d,i){
+               return (i * 180) + 20;
+            })
+            .attr('cy', 150)
+            .attr('r', function(d){
+               return d * 30;
+            })
+
+      }
+    };
+
+    Polymer('cth-d3',{
+      grades: [1,2,6,9,3],
+      windowPosition: 0,
+      ready: function(){
+        var self = this;
+
+        scatter.init(this.$.chart, this.grades);
+        setTimeout(function(){
+          console.log(self);
+          self.grades = [8,3,4,5,4,5,1,8];
+        }, 2000);
+      },
+        scatter.draw(this.grades);
+      }
+    });
+  </script>
+
+</polymer-element>
