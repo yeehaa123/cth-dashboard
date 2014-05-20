@@ -4,10 +4,8 @@
 <link rel="import" href="../bower_components/core-drawer-panel/core-drawer-panel.html">
 
 <link rel="import" href="./cth-student-list.html">
+<link rel="import" href="./cth-student-profile.html">
 
-<script src="../bower_components/lodash/dist/lodash.js"></script>
-<script src="../bower_components/d3/d3.js"></script>
-<script src="../bower_components/radar-chart-d3/src/radar-chart.js"></script>
 
 <polymer-element name="cth-dashboard">
 
@@ -21,35 +19,13 @@
     <core-drawer-panel>
       <cth-student-list selectedStudent="{{student}}" students="{{students}}" drawer>
       </cth-student-list>
-      <div main> 
-        <div id="chart"></div>
-        <h1>{{ student.fullName }}</h1>
-        <h2>{{ student.study }}</h2>
-        <h2>{{ student.studyYear }}</h2>
-        <p>{{ student.motivation }}</p>
-      <div>
+      <cth-student-profile student="{{student}}" main> 
+      </cth-student-profile>
     </core-drawer-panel>
 
   </template>
   <script>
     Polymer('cth-dashboard', {
-      studentChanged: function(){
-        if(this.student){
-          var student = this.student;
-          this.student.fullName = student.name.first + " " + student.name.last
-          var competence = this.student.codingExperience;
-          competence = _.pick(competence, function(value, key){
-            return key !== 'others';
-          });
-          competence = _.map(competence, function(value, key){
-            return {
-              axis: key,
-              value: value
-            }
-          });
-          RadarChart.draw(this.$.chart, [competence]);
-        };
-      },
     });
   </script>
 

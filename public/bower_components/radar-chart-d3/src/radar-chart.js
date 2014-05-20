@@ -7,7 +7,7 @@ var RadarChart = {
      factor: .95,
      factorLegend: 1,
      levels: 3,
-     maxValue: 0,
+     maxValue: 10,
      radians: 2 * Math.PI,
      opacityArea: 0.5,
      color: d3.scale.category10(),
